@@ -1,0 +1,27 @@
+/* 
+  Localizable.strings
+  CurrencyConverter
+
+  Created by milan.mia on 5/18/20.
+  Copyright © 2020 fftsys. All rights reserved.
+*/
+
+"Common.OK" = "OK";
+"Common.Cancel" = "Cancel";
+
+/// Error
+"Error.ConnectionDisconnected.Message" = "Offline";
+"Error.ConnectionTimedOut.Message" = "Connection timed out";
+"Error.ConnectionCanceled.Message" = "Connection canceled";
+"Error.BadServerResponse.Message" = "Bad server response";
+"Error.EmptyResponse.Message" = "Response is empty";
+"Error.EmptyData.Message" = "Data is empty";
+"Error.InvalidHttpStatusCode.Message" = "Invalid Http StatusCode";
+"Error.HttpStatusCodeNotSuccess.Message" = "Error Http StatusCode";
+"Error.JsonNotDecode.Message" = "JSON decode failed";
+"Error.JsonNotEncode.Message" = "JSON encode failed";
+
+"Error.ServerError.Message" = "A server error has occurred. Please try again later.";
+"Error.CurrencyFetchFailed.Message" = "Could not fetch currency. Please try again later.";
+"Error.Subscription.NotValidMessage" = "Access Restricted - Your current Subscription Plan does not support Source Currency Switching.";
+"Error.SystemError.UnknownError.Message" = "Unknown error";

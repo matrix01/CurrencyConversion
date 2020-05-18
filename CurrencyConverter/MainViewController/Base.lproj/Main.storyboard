@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Main View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="MainViewController" id="BYZ-38-t0r" customClass="MainViewController" customModule="CurrencyConverter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="m0d-w8-qCK">
+                                <rect key="frame" x="50" y="79" width="234" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="ntv-0b-XVl"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currency update time: [DDDD]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e7T-QN-OpS">
+                                <rect key="frame" x="50" y="54" width="314" height="14.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9LE-Sb-TIF">
+                                <rect key="frame" x="0.0" y="236" width="414" height="660"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="Y2F-J1-znM"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="rgs-g0-p0n"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ez-CK-Dje" customClass="Button" customModule="CurrencyConverter" customModuleProvider="target">
+                                <rect key="frame" x="294" y="79" width="70" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="3pL-SO-Wfa"/>
+                                </constraints>
+                                <state key="normal" title="USD"/>
+                                <connections>
+                                    <action selector="sourceSelectAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aw6-ke-eVr"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="XXX.XXX" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o8Q-MK-Q89">
+                                <rect key="frame" x="50" y="146" width="64.5" height="18"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                                <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBM-BS-uaQ" customClass="Button" customModule="CurrencyConverter" customModuleProvider="target">
+                                <rect key="frame" x="294" y="192" width="70" height="34"/>
+                                <state key="normal" title="Convert"/>
+                                <connections>
+                                    <action selector="convertAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xaa-cE-9LB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aoj-e5-1Hf" customClass="Button" customModule="CurrencyConverter" customModuleProvider="target">
+                                <rect key="frame" x="294" y="138" width="70" height="34"/>
+                                <state key="normal" title="JPY"/>
+                                <connections>
+                                    <action selector="targetBtnAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CMO-Hv-dVV"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="8Ez-CK-Dje" firstAttribute="height" secondItem="m0d-w8-qCK" secondAttribute="height" id="1fL-35-yNs"/>
+                            <constraint firstItem="o8Q-MK-Q89" firstAttribute="centerY" secondItem="Aoj-e5-1Hf" secondAttribute="centerY" id="3zq-2T-kZA"/>
+                            <constraint firstAttribute="bottom" secondItem="9LE-Sb-TIF" secondAttribute="bottom" id="5W0-tC-Tvh"/>
+                            <constraint firstItem="9LE-Sb-TIF" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="5iB-In-Jgw"/>
+                            <constraint firstItem="m0d-w8-qCK" firstAttribute="top" secondItem="e7T-QN-OpS" secondAttribute="bottom" constant="10.5" id="6GJ-Qd-siv"/>
+                            <constraint firstItem="Aoj-e5-1Hf" firstAttribute="height" secondItem="8Ez-CK-Dje" secondAttribute="height" id="9A4-B7-Z4c"/>
+                            <constraint firstItem="Aoj-e5-1Hf" firstAttribute="width" secondItem="8Ez-CK-Dje" secondAttribute="width" id="Bat-vn-7Kb"/>
+                            <constraint firstItem="9LE-Sb-TIF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="CfT-nv-rit"/>
+                            <constraint firstItem="o8Q-MK-Q89" firstAttribute="leading" secondItem="m0d-w8-qCK" secondAttribute="leading" id="CmC-4G-eac"/>
+                            <constraint firstItem="Aoj-e5-1Hf" firstAttribute="top" secondItem="8Ez-CK-Dje" secondAttribute="bottom" constant="25" id="Eic-9n-QNt"/>
+                            <constraint firstItem="e7T-QN-OpS" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="Oty-fP-MKx"/>
+                            <constraint firstItem="9LE-Sb-TIF" firstAttribute="top" secondItem="zBM-BS-uaQ" secondAttribute="bottom" constant="10" id="RXE-gJ-Slr"/>
+                            <constraint firstItem="zBM-BS-uaQ" firstAttribute="width" secondItem="Aoj-e5-1Hf" secondAttribute="width" id="SfE-kG-nLk"/>
+                            <constraint firstItem="zBM-BS-uaQ" firstAttribute="top" secondItem="Aoj-e5-1Hf" secondAttribute="bottom" constant="20" id="UAO-ZW-CAv"/>
+                            <constraint firstItem="zBM-BS-uaQ" firstAttribute="height" secondItem="Aoj-e5-1Hf" secondAttribute="height" id="crE-4N-Xkk"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="8Ez-CK-Dje" secondAttribute="trailing" constant="50" id="f7J-ki-tiv"/>
+                            <constraint firstItem="m0d-w8-qCK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="hYd-6L-wFP"/>
+                            <constraint firstItem="e7T-QN-OpS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="hdE-ix-XOt"/>
+                            <constraint firstItem="8Ez-CK-Dje" firstAttribute="leading" secondItem="m0d-w8-qCK" secondAttribute="trailing" constant="10" id="kvb-9r-1fR"/>
+                            <constraint firstItem="zBM-BS-uaQ" firstAttribute="trailing" secondItem="Aoj-e5-1Hf" secondAttribute="trailing" id="o9y-CC-2ZU"/>
+                            <constraint firstItem="8Ez-CK-Dje" firstAttribute="top" secondItem="e7T-QN-OpS" secondAttribute="bottom" constant="10.5" id="rD2-Og-kza"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="e7T-QN-OpS" secondAttribute="trailing" constant="50" id="rF8-hn-Kgn"/>
+                            <constraint firstItem="Aoj-e5-1Hf" firstAttribute="centerX" secondItem="8Ez-CK-Dje" secondAttribute="centerX" id="tnB-iQ-iT6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="convertedLabel" destination="o8Q-MK-Q89" id="ads-fq-LhE"/>
+                        <outlet property="dateLabel" destination="e7T-QN-OpS" id="pJy-CM-hho"/>
+                        <outlet property="sourceBtn" destination="8Ez-CK-Dje" id="Z8y-cu-wD8"/>
+                        <outlet property="tableView" destination="9LE-Sb-TIF" id="nuI-Pu-EfT"/>
+                        <outlet property="targetBtn" destination="Aoj-e5-1Hf" id="Iga-6F-55T"/>
+                        <outlet property="textInputView" destination="m0d-w8-qCK" id="PSy-q5-IoW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="95.758928571428569"/>
+        </scene>
+    </scenes>
+</document>

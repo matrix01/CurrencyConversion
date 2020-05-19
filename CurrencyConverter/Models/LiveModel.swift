@@ -6,14 +6,16 @@
 //  Copyright © 2020 fftsys. All rights reserved.
 //
 
+import RealmSwift
+
 //Live
-internal struct Live: Codable {
-    var source: String
-    var timestamp: Int
-    var privacy: String
-    var terms: String
-    var success: Bool
-    var quotes: [Rate]
+class Live: Object, Codable {
+    @objc dynamic var source: String = ""
+    @objc dynamic var timestamp: Int = 0
+    @objc dynamic var privacy: String = ""
+    @objc dynamic var terms: String = ""
+    @objc dynamic var success: Bool = false
+    var quotes: [Rate] = []
 
     private enum CodingKeys: String, CodingKey {
         case source
@@ -24,7 +26,8 @@ internal struct Live: Codable {
         case quotes
     }
 
-    init(from decoder: Decoder) throws {
+    required convenience public init(from decoder: Decoder) throws {
+        self.init()
         let container = try decoder.container(keyedBy: CodingKeys.self)
         source = try container.decode(String.self, forKey: .source)
         timestamp = try container.decode(Int.self, forKey: .timestamp)
@@ -35,17 +38,30 @@ internal struct Live: Codable {
             return Rate.init(key: dict.key, value: dict.value)
         }
         quotes = arrayOfRate
+        
     }
 }
 
-internal struct Rate: Codable {
-    var source: String
-    var target: String
-    var value: Double
+class Rate: Object, Codable {
+    @objc dynamic var source: String = ""
+    @objc dynamic var target: String = ""
+    @objc dynamic var value: Double = 0.0
     
-    init(key:String, value: Double) {
+    required init(key:String, value: Double) {
         source = key.substring(to: 3)
         target = key.substring(from: 3)
         self.value = value
+    }
+    
+    required init() {
+        super.init()
+        source = ""
+        target = ""
+        value = 0.0
+        savedata()
+    }
+    
+    func savedata() {
+        
     }
 }

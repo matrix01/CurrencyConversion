@@ -13,5 +13,6 @@ target 'CurrencyConverter' do
    
    # SwiftLint
    pod 'SwiftLint'
+   pod 'RealmSwift'
 
 end

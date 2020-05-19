@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import RealmSwift
 
 /// protocol Main UseCase
 protocol MainUseCase {
     func requestRecentQuotes(completionHandler: @escaping CurConvResultHandler)
     func requestQuote(from:String, to:String, amount:Double, completionHandler: @escaping CurConvResultHandler)
+    func getLiveObject() -> Live?
 }
 
 /// Main Interactor
@@ -48,5 +50,12 @@ extension MainInteractor: MainUseCase {
                 completionHandler(.failure(error))
             }
         }
+    }
+    
+    func getLiveObject() -> Live? {
+        let realm = try! Realm()
+        let ob = realm.objects(Live.self)
+        guard let live = realm.objects(Live.self).first else {return nil}
+        return live
     }
 }

@@ -82,6 +82,7 @@ internal final class MainViewController: UIViewController {
     }
     
     @IBAction func convertAction(_ sender: Button) {
+        presenter.retryFetch()
         presenter.hidePicker()
         textInputView.resignFirstResponder()
         guard let from = sourceBtn.title(for: .normal) else {return}

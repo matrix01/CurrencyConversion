@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,6 +27,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.overrideUserInterfaceStyle = .light
         }
 
+        let realm = try! Realm()
+        try! realm.write({
+            realm.deleteAll()
+        })
+        
         window?.makeKeyAndVisible()
         
         return true

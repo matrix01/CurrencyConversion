@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 /// protocol Main Presentation
 protocol MainPresentation {
@@ -42,12 +43,23 @@ extension MainPresenter: MainPresentation {
     }
     
     func fetchQuotes() {
+        if (interactor.getLiveObject() != nil) {
+            if let live = interactor.getLiveObject() {
+                self.view?.didReceivedQuotes(live: live)
+                return
+            }
+        }
+        
         interactor.requestRecentQuotes(completionHandler: { [weak self] result in
             switch result {
             case .success(let data):
                 do {
+                    let  realm  =  try!  Realm ()
                     let quote = try JSONDecoder().decode(Live.self, from: data)
                     self?.view?.didReceivedQuotes(live: quote)
+                    try! realm.write({
+                        realm.add(quote)
+                    })
                 }catch {
                     self?.view?.onError(error: .quotesJsonDecodeFailed)
                 }

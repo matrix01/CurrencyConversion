@@ -18,7 +18,7 @@ internal final class CurrencyListCell: UITableViewCell {
         // Initialization code
     }
     
-    func bind(rate: RateRealm) {
+    func bind(rate: Rate) {
         countryLabel.text = rate.target
         rateLabel.text = "\(rate.value)"
     }

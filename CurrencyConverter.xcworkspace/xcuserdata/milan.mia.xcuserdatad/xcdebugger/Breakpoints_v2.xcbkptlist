@@ -23,49 +23,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EE33C086-F678-4918-B85C-7C4F35B86D82"
-            shouldBeEnabled = "Yes"
+            uuid = "C4FE7A15-65A9-4873-B787-ADBA60EB7CA0"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CurrencyConverter/MainViewController/MainPresenter.swift"
+            filePath = "CurrencyConverter/MainViewController/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
-            landmarkName = "fetchRateFor(from:to:amount:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "EE33C086-F678-4918-B85C-7C4F35B86D82 - 11abdf77088a3426"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "CurrencyConverter.MainPresenter.fetchRateFor(from: Swift.String, to: Swift.String, amount: Swift.Double) -&gt; ()"
-                  moduleName = "CurrencyConverter"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/milan.mia/Documents/PersonalR&amp;D/CurrencyConversion/CurrencyConverter/MainViewController/MainPresenter.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "71"
-                  endingLineNumber = "71"
-                  offsetFromSymbolStart = "66">
-               </Location>
-               <Location
-                  uuid = "EE33C086-F678-4918-B85C-7C4F35B86D82 - a15b552d37484f6e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;Foundation.Data, CurrencyConverter.CurrencyError&gt;) -&gt; () in CurrencyConverter.MainPresenter.fetchRateFor(from: Swift.String, to: Swift.String, amount: Swift.Double) -&gt; ()"
-                  moduleName = "CurrencyConverter"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/milan.mia/Documents/PersonalR&amp;D/CurrencyConversion/CurrencyConverter/MainViewController/MainPresenter.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "71"
-                  endingLineNumber = "71"
-                  offsetFromSymbolStart = "329">
-               </Location>
-            </Locations>
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "liveData"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

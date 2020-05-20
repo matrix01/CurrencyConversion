@@ -10,3 +10,4 @@ import Foundation
 import RealmSwift
 
 typealias RealmResultHandler = (Results<RateRealm>) -> Void
+

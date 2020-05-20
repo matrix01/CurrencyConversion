@@ -38,7 +38,7 @@ class MainRouterNetworkTest: XCTestCase {
             switch result {
             case.success(let data):
                 do {
-                    _ = try JSONDecoder().decode(Live.self, from: data)
+                    _ = try JSONDecoder().decode(InfoRealm.self, from: data)
                 } catch {
                     XCTFail(error.localizedDescription)
                 }

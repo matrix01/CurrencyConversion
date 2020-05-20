@@ -7,13 +7,13 @@
 //
 
 import UIKit
-import RealmSwift
 
 /// protocol Main View
 protocol MainView: class {
     func didReceivedConversion(quote:String)
-    func didReceivedQuotes(live: InfoRealm?, rates: Results<RateRealm>?)
+    func didReceivedQuotes(live:Currency)
     func onError(error: CurrencyError)
+    func getLiveData() -> [Rate]
     func showPicker()
     func hidePicker()
 }
@@ -38,14 +38,9 @@ internal final class MainViewController: UIViewController {
         return tempPickerView
     }()
     
-    private var rates: Results<RateRealm>? = nil {
+    private var liveData: Currency? = nil {
         didSet {
             self.updateQuotes()
-        }
-    }
-    
-    private var info: InfoRealm? = nil {
-        didSet {
         }
     }
     
@@ -65,12 +60,12 @@ internal final class MainViewController: UIViewController {
     }
     
     func updateQuotes() {
-        let dateString = info?.timestamp.toDateString()
+        let dateString = liveData?.timestamp.toDateString()
         dateLabel.text = "Currency update time: \(dateString ?? "DDDDD")"
         textInputView.text = "1.0"
-        sourceBtn.setTitle(info?.source, for: .normal)
+        sourceBtn.setTitle(liveData?.source, for: .normal)
 
-        if let rate = rates?.first(where: {$0.target == "JPY"}) {
+        if let rate = liveData?.quotes.first(where: {$0.target == "JPY"}) {
             convertedLabel.text = "= \(rate.value) JPY"
         }
         tableView.reloadData()
@@ -101,14 +96,13 @@ internal final class MainViewController: UIViewController {
 extension MainViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return rates?.count ?? 0
+        return liveData?.quotes.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: R.nib.currencyListCell, for: indexPath) else { return UITableViewCell() }
-        if let rate = rates?[indexPath.row] {
-            cell.bind(rate: rate)
-        }
+        let rate = liveData?.quotes[indexPath.row] ?? Rate.init(source: "XXX", target: "XXX", value: 0.0)
+        cell.bind(rate: rate)
         return cell
     }
 
@@ -130,6 +124,9 @@ extension MainViewController: UITableViewDelegate {
 // MARK: - MainView
 
 extension MainViewController: MainView {
+    func getLiveData() -> [Rate] {
+        return liveData?.quotes ?? []
+    }
     
     func didReceivedConversion(quote: String) {
         convertedLabel.text = quote
@@ -143,9 +140,8 @@ extension MainViewController: MainView {
         pickerView.removeFromSuperview()
     }
     
-    func didReceivedQuotes(live: InfoRealm?, rates: Results<RateRealm>?) {
-        self.info = live
-        self.rates = rates
+    func didReceivedQuotes(live: Currency) {
+        liveData = live
     }
 
     func onError(error: CurrencyError) {
@@ -169,7 +165,7 @@ extension MainViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         var title = "USD"
         if row > 0 {
-            if let rate = rates?[row-1] {
+            if let rate = liveData?.quotes[row-1] {
                 title = rate.target
             }
         }
@@ -187,7 +183,7 @@ extension MainViewController: UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        guard let count = rates?.count else {
+        guard let count = liveData?.quotes.count else {
             return 0
         }
         return count == 0 ? 0 : (count + 1)
@@ -197,7 +193,7 @@ extension MainViewController: UIPickerViewDataSource {
         if row == 0 {
             return "USD"
         }
-        if let rate = rates?[row-1] {
+        if let rate = liveData?.quotes[row-1] {
             return rate.target
         }
         return ""

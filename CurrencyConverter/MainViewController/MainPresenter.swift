@@ -43,21 +43,25 @@ extension MainPresenter: MainPresentation {
     }
     
     func fetchQuotes() {
-        if (interactor.getRateObjects().count != 0) {
-            let rates = interactor.getRateObjects()
-            let info = interactor.getInfoObject()
-            view?.didReceivedQuotes(live: info, rates: rates)
+        guard let currency = InfoRealm.getInfo() else {
+            fetchFromServer()
             return
         }
-        
+        if currency.lastUpdate < Date() {
+            fetchFromServer()
+        }else {
+            view?.didReceivedQuotes(live: currency.asDomain())
+        }
+    }
+    
+    func fetchFromServer() {
         interactor.requestRecentQuotes(completionHandler: { [weak self] result in
             switch result {
             case .success(let data):
                 do {
-                    _ = try JSONDecoder().decode(Live.self, from: data)
-                    let rates = self?.interactor.getRateObjects()
-                    let info = self?.interactor.getInfoObject()
-                    self?.view?.didReceivedQuotes(live: info, rates: rates)
+                    let test = try JSONDecoder().decode(InfoRealm.self, from: data)
+                    test.save()
+                    self?.view?.didReceivedQuotes(live: test.asDomain())
                 }catch {
                     self?.view?.onError(error: .quotesJsonDecodeFailed)
                 }

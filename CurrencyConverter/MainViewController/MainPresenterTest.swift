@@ -21,14 +21,6 @@ class MainPresenterTest: XCTestCase {
 
         presenter = MainPresenter.init(view: view, router: router, interactor: interactor)
     }
-    
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
 
     func testExample() throws {
         // This is an example of a functional test case.
@@ -48,6 +40,7 @@ class MainPresenterTest: XCTestCase {
                 view.initialize()
                 presenter.fetchQuotes()
                 XCTAssertTrue(interactor.isFetched, "Fetching data successful.")
+                XCTAssertTrue(view.isHudShown, "Hud is showing.")
                 XCTAssertTrue(view.isFetched, "UI update on fetch data successful.")
             }
             XCTContext.runActivity(named: "Converter Pass Test") { _ in
@@ -75,6 +68,7 @@ class MainViewMock: MainView {
     var isFetched: Bool!
     var isError: Bool!
     var conversionString:String!
+    var isHudShown: Bool!
     
     var currencyData: Currency? = nil {
         didSet {
@@ -114,6 +108,10 @@ class MainViewMock: MainView {
     
     func updateQuotes(){
         isFetched = true
+    }
+    
+    func showHud() {
+        isHudShown = true
     }
 }
 

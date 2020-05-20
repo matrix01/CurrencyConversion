@@ -17,6 +17,7 @@
 		8C261F3A24731E1600EDC861 /* CurrencyConverterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C261F3924731E1600EDC861 /* CurrencyConverterUITests.swift */; };
 		8C261F432474CFB200EDC861 /* DatabaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C261F422474CFB200EDC861 /* DatabaseClient.swift */; };
 		8C261F452474ED0900EDC861 /* RealmModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C261F442474ED0900EDC861 /* RealmModels.swift */; };
+		8C261F47247548C100EDC861 /* Convertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C261F46247548C100EDC861 /* Convertible.swift */; };
 		8CFFB283246F20F8003C2716 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFFB282246F20F8003C2716 /* AppDelegate.swift */; };
 		8CFFB287246F20F8003C2716 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFFB286246F20F8003C2716 /* MainViewController.swift */; };
 		8CFFB28A246F20F8003C2716 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CFFB288246F20F8003C2716 /* Main.storyboard */; };
@@ -76,6 +77,7 @@
 		8C261F3B24731E1600EDC861 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C261F422474CFB200EDC861 /* DatabaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseClient.swift; sourceTree = "<group>"; };
 		8C261F442474ED0900EDC861 /* RealmModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModels.swift; sourceTree = "<group>"; };
+		8C261F46247548C100EDC861 /* Convertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convertible.swift; sourceTree = "<group>"; };
 		8CFFB27F246F20F8003C2716 /* CurrencyConverter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyConverter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CFFB282246F20F8003C2716 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CFFB286246F20F8003C2716 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 				8CFFB2AC246F2607003C2716 /* DeviceModel.swift */,
 				8CFFB2B9247057D8003C2716 /* DomainModels.swift */,
 				8C261F442474ED0900EDC861 /* RealmModels.swift */,
+				8C261F46247548C100EDC861 /* Convertible.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -545,6 +548,7 @@
 				8CFFB2B124703EC9003C2716 /* MainRouter.swift in Sources */,
 				8CFFB2AA246F22FD003C2716 /* ApiServer.swift in Sources */,
 				8CFFB2C42471A79E003C2716 /* Int+Date.swift in Sources */,
+				8C261F47247548C100EDC861 /* Convertible.swift in Sources */,
 				8C261F142472EEED00EDC861 /* ConvertRequest.swift in Sources */,
 				8CFFB2BE24719C50003C2716 /* Error.swift in Sources */,
 				8CFFB2B324703F07003C2716 /* MainInteractor.swift in Sources */,

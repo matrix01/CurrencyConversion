@@ -32,7 +32,7 @@ import RealmSwift
 }
 
 //Live data model as InfoRealm
-@objcMembers class InfoRealm: Object, Decodable {
+@objcMembers class CurrencyRealm: Object, Decodable {
     dynamic var source: String = ""
     dynamic var timestamp: Int = 0
     dynamic var privacy: String = ""
@@ -72,24 +72,16 @@ import RealmSwift
     required init() {
         super.init()
     }
-    
-    func asDomain() -> Currency {
-        var quotes = [Rate]()
-        for rate in rates {
-            quotes.append(Rate.init(source: rate.source, target: rate.target, value: rate.value))
-        }
-        return Currency(source: source, timestamp: timestamp, privacy: privacy, terms: terms, success: success, quotes: quotes)
-    }
-    
+
     func save(){
         let realm = try! Realm()
         try! realm.write({
-            realm.create(InfoRealm.self, value: self, update: .all)
+            realm.create(CurrencyRealm.self, value: self, update: .all)
         })
     }
     
-    static func getInfo() -> InfoRealm? {
+    static func getInfo() -> CurrencyRealm? {
         let realm = try! Realm()
-        return realm.objects(InfoRealm.self).first
+        return realm.objects(CurrencyRealm.self).first
     }
 }

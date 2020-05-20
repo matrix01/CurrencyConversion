@@ -76,7 +76,7 @@ class MainViewMock: MainView {
     var isError: Bool!
     var conversionString:String!
     
-    private var liveData: Live? = nil {
+    private var liveData: Currency? = nil {
         didSet {
             self.updateQuotes()
         }
@@ -100,12 +100,8 @@ class MainViewMock: MainView {
         conversionString = quote
     }
     
-    func didReceivedQuotes(live: Live) {
+    func didReceivedQuotes(live: Currency) {
         liveData = live
-    }
-    
-    func getLiveData() -> [Rate] {
-        return liveData?.quotes ?? []
     }
     
     func showPicker() {
@@ -122,6 +118,18 @@ class MainViewMock: MainView {
 }
 
 class MainInteractorMock: MainUseCase {
+    func getRateObjects() -> Results<RateRealm> {
+        return try! Realm().ob
+    }
+    
+    func getInfoObject() -> CurrencyRealm? {
+        <#code#>
+    }
+    
+    func clearRealm() {
+        <#code#>
+    }
+    
     
     var isFetched = false
     var isConverted = false

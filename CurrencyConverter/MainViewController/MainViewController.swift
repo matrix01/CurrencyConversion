@@ -11,9 +11,8 @@ import UIKit
 /// protocol Main View
 protocol MainView: class {
     func didReceivedConversion(quote:String)
-    func didReceivedQuotes(live:Currency)
+    func didReceivedQuotes(currency:Currency)
     func onError(error: CurrencyError)
-    func getLiveData() -> [Rate]
     func showPicker()
     func hidePicker()
 }
@@ -47,7 +46,6 @@ internal final class MainViewController: UIViewController {
     var presenter: MainPresentation!
 
     // MARK: - LifeCycle
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -72,7 +70,6 @@ internal final class MainViewController: UIViewController {
     }
     
     // MARK: - Actions
-    
     @IBAction func sourceSelectAction(_ sender: UIButton) {
         presenter.showPicker()
     }
@@ -105,7 +102,6 @@ extension MainViewController: UITableViewDataSource {
         cell.bind(rate: rate)
         return cell
     }
-
 }
 // MARK: - UITableViewDelegate
 
@@ -118,15 +114,11 @@ extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
 }
 
 // MARK: - MainView
 
 extension MainViewController: MainView {
-    func getLiveData() -> [Rate] {
-        return liveData?.quotes ?? []
-    }
     
     func didReceivedConversion(quote: String) {
         convertedLabel.text = quote
@@ -140,28 +132,32 @@ extension MainViewController: MainView {
         pickerView.removeFromSuperview()
     }
     
-    func didReceivedQuotes(live: Currency) {
-        liveData = live
+    func didReceivedQuotes(currency: Currency) {
+        liveData = currency
     }
 
     func onError(error: CurrencyError) {
         switch error {
         case .quotesJsonDecodeFailed:
-            presenter.showAlert(title: error.localizedDescription.title, message: error.localizedDescription.message, actionHandler: {
-                self.presenter.retryFetch()
+            presenter.showAlert(title: error.localizedDescription.title,
+                                message: error.localizedDescription.message,
+                                actionHandler: { [weak self] in
+                    self?.presenter.retryFetch()
             })
         default:
-            presenter.showAlert(title: error.localizedDescription.title, message: error.localizedDescription.message, actionHandler: {
-                self.updateQuotes()
+            presenter.showAlert(title: error.localizedDescription.title,
+                                message: error.localizedDescription.message,
+                                actionHandler: { [weak self] in
+                self?.updateQuotes()
             })
         }
-        
     }
 }
 
 // MARK: - Picker delegate, Datasource
 
 extension MainViewController: UIPickerViewDelegate {
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         var title = "USD"
         if row > 0 {
@@ -178,21 +174,18 @@ extension MainViewController: UIPickerViewDelegate {
 }
 
 extension MainViewController: UIPickerViewDataSource {
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         2
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        guard let count = liveData?.quotes.count else {
-            return 0
-        }
+        guard let count = liveData?.quotes.count else { return 0 }
         return count == 0 ? 0 : (count + 1)
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if row == 0 {
-            return "USD"
-        }
+        if row == 0 { return "USD" }
         if let rate = liveData?.quotes[row-1] {
             return rate.target
         }
@@ -203,6 +196,7 @@ extension MainViewController: UIPickerViewDataSource {
 // MARK: - TextField delegate
 
 extension MainViewController: UITextFieldDelegate {
+    
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         textField.keyboardType = .numbersAndPunctuation
         return true

@@ -14,7 +14,7 @@ protocol MainUseCase {
     func requestRecentQuotes(completionHandler: @escaping CurConvResultHandler)
     func requestQuote(from:String, to:String, amount:Double, completionHandler: @escaping CurConvResultHandler)
     func getRateObjects() -> Results<RateRealm>
-    func getInfoObject() -> InfoRealm?
+    func getInfoObject() -> CurrencyRealm?
     func clearRealm()
 }
 
@@ -59,9 +59,9 @@ extension MainInteractor: MainUseCase {
         return realm.objects(RateRealm.self)
     }
     
-    func getInfoObject() -> InfoRealm? {
+    func getInfoObject() -> CurrencyRealm? {
         let realm = try! Realm()
-        return realm.objects(InfoRealm.self).first
+        return realm.objects(CurrencyRealm.self).first
     }
     
     func clearRealm() {

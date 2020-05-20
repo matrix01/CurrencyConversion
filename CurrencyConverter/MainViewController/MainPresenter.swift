@@ -42,15 +42,21 @@ extension MainPresenter: MainPresentation {
         fetchQuotes()
     }
     
+    func retryFetch() {
+        fetchQuotes()
+    }
+    
     func fetchQuotes() {
-        guard let currency = InfoRealm.getInfo() else {
+        guard let currency = CurrencyRealm.getInfo() else {
             fetchFromServer()
             return
         }
+        
+        //check if 30 mins has passed
         if currency.lastUpdate < Date() {
             fetchFromServer()
         }else {
-            view?.didReceivedQuotes(live: currency.asDomain())
+            view?.didReceivedQuotes(currency: currency.asDomain())
         }
     }
     
@@ -59,9 +65,9 @@ extension MainPresenter: MainPresentation {
             switch result {
             case .success(let data):
                 do {
-                    let test = try JSONDecoder().decode(InfoRealm.self, from: data)
+                    let test = try JSONDecoder().decode(CurrencyRealm.self, from: data)
                     test.save()
-                    self?.view?.didReceivedQuotes(live: test.asDomain())
+                    self?.view?.didReceivedQuotes(currency: test.asDomain())
                 }catch {
                     self?.view?.onError(error: .quotesJsonDecodeFailed)
                 }
@@ -102,10 +108,6 @@ extension MainPresenter: MainPresentation {
     
     func showAlert(title: String, message: String, actionHandler: @escaping () -> Void) {
         router.routeToAlert(title: title, message: message, actionHandler: actionHandler)
-    }
-    
-    func retryFetch() {
-        fetchQuotes()
     }
     
     func showPicker() {

@@ -47,7 +47,7 @@ class MainPresenterTest: XCTestCase {
             XCTContext.runActivity(named: "Fetch Live Data") { _ in
                 view.initialize()
                 presenter.fetchQuotes()
-                XCTAssertTrue(interactor.isFetched, "Fetching data successful.")
+                XCTAssertTrue(view.isFetched, "Fetching data successful.")
                 XCTAssertTrue(view.isFetched, "UI update on fetch data successful.")
             }
             XCTContext.runActivity(named: "Converter Pass Test") { _ in
@@ -76,7 +76,7 @@ class MainViewMock: MainView {
     var isError: Bool!
     var conversionString:String!
     
-    private var liveData: Currency? = nil {
+    private var currencyData: Currency? = nil {
         didSet {
             self.updateQuotes()
         }
@@ -100,8 +100,8 @@ class MainViewMock: MainView {
         conversionString = quote
     }
     
-    func didReceivedQuotes(live: Currency) {
-        liveData = live
+    func didReceivedQuotes(currency: Currency) {
+        currencyData = currency
     }
     
     func showPicker() {
@@ -118,18 +118,6 @@ class MainViewMock: MainView {
 }
 
 class MainInteractorMock: MainUseCase {
-    func getRateObjects() -> Results<RateRealm> {
-        return try! Realm().ob
-    }
-    
-    func getInfoObject() -> CurrencyRealm? {
-        <#code#>
-    }
-    
-    func clearRealm() {
-        <#code#>
-    }
-    
     
     var isFetched = false
     var isConverted = false
@@ -159,6 +147,14 @@ class MainInteractorMock: MainUseCase {
             completionHandler(.failure(CurrencyError.fetchCurrencyFailed))
             isConverted = false
         }
+    }
+    
+    func requestSavedQuotes() -> Currency? {
+        let currencyRM = CurrencyRealm.getCurrency()
+        if currencyRM?.asDomain() != nil {
+            isFetched = true
+        }
+        return currencyRM?.asDomain()
     }
 }
 

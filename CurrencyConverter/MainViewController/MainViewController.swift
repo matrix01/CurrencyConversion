@@ -37,7 +37,7 @@ internal final class MainViewController: UIViewController {
         return tempPickerView
     }()
     
-    private var liveData: Currency? = nil {
+    private var currencyData: Currency? = nil {
         didSet {
             self.updateQuotes()
         }
@@ -54,16 +54,17 @@ internal final class MainViewController: UIViewController {
     }
     
     func setupView() {
+        title = "Currency"
         tableView.register(R.nib.currencyListCell)
     }
     
     func updateQuotes() {
-        let dateString = liveData?.timestamp.toDateString()
+        let dateString = currencyData?.timestamp.toDateString()
         dateLabel.text = "Currency update time: \(dateString ?? "DDDDD")"
         textInputView.text = "1.0"
-        sourceBtn.setTitle(liveData?.source, for: .normal)
+        sourceBtn.setTitle(currencyData?.source, for: .normal)
 
-        if let rate = liveData?.quotes.first(where: {$0.target == "JPY"}) {
+        if let rate = currencyData?.quotes.first(where: {$0.target == "JPY"}) {
             convertedLabel.text = "= \(rate.value) JPY"
         }
         tableView.reloadData()
@@ -71,10 +72,12 @@ internal final class MainViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func sourceSelectAction(_ sender: UIButton) {
+        textInputView.resignFirstResponder()
         presenter.showPicker()
     }
     
     @IBAction func targetBtnAction(_ sender: UIButton) {
+        textInputView.resignFirstResponder()
         presenter.showPicker()
     }
     
@@ -93,12 +96,12 @@ internal final class MainViewController: UIViewController {
 extension MainViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return liveData?.quotes.count ?? 0
+        return currencyData?.quotes.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: R.nib.currencyListCell, for: indexPath) else { return UITableViewCell() }
-        let rate = liveData?.quotes[indexPath.row] ?? Rate.init(source: "XXX", target: "XXX", value: 0.0)
+        let rate = currencyData?.quotes[indexPath.row] ?? Rate.init(source: "XXX", target: "XXX", value: 0.0)
         cell.bind(rate: rate)
         return cell
     }
@@ -133,7 +136,7 @@ extension MainViewController: MainView {
     }
     
     func didReceivedQuotes(currency: Currency) {
-        liveData = currency
+        currencyData = currency
     }
 
     func onError(error: CurrencyError) {
@@ -161,7 +164,7 @@ extension MainViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         var title = "USD"
         if row > 0 {
-            if let rate = liveData?.quotes[row-1] {
+            if let rate = currencyData?.quotes[row-1] {
                 title = rate.target
             }
         }
@@ -180,13 +183,13 @@ extension MainViewController: UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        guard let count = liveData?.quotes.count else { return 0 }
+        guard let count = currencyData?.quotes.count else { return 0 }
         return count == 0 ? 0 : (count + 1)
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if row == 0 { return "USD" }
-        if let rate = liveData?.quotes[row-1] {
+        if let rate = currencyData?.quotes[row-1] {
             return rate.target
         }
         return ""

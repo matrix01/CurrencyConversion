@@ -36,6 +36,6 @@ extension CurrencyRealm: DomainConvertibleType {
     typealias DomainType = Currency
     
     func asDomain() -> DomainType {
-        return Currency.init(source: source, timestamp: timestamp, privacy: privacy, terms: terms, success: success, quotes: rates.mapToDomain())
+        return Currency.init(source: source, timestamp: timestamp, privacy: privacy, terms: terms, success: success, lastUpdate: lastUpdate, quotes: rates.mapToDomain())
     }
 }

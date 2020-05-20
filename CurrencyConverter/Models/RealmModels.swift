@@ -31,6 +31,13 @@ import RealmSwift
     }
 }
 
+extension RateRealm {
+    static func getRates() -> Results<RateRealm>? {
+        let realm = try! Realm()
+        return realm.objects(RateRealm.self)
+    }
+}
+
 //Live data model as InfoRealm
 @objcMembers class CurrencyRealm: Object, Decodable {
     dynamic var source: String = ""
@@ -72,7 +79,9 @@ import RealmSwift
     required init() {
         super.init()
     }
+}
 
+extension CurrencyRealm {
     func save(){
         let realm = try! Realm()
         try! realm.write({
@@ -80,7 +89,7 @@ import RealmSwift
         })
     }
     
-    static func getInfo() -> CurrencyRealm? {
+    static func getCurrency() -> CurrencyRealm? {
         let realm = try! Realm()
         return realm.objects(CurrencyRealm.self).first
     }

@@ -11,11 +11,9 @@ import RealmSwift
 
 /// protocol Main UseCase
 protocol MainUseCase {
+    func requestSavedQuotes() -> Currency?
     func requestRecentQuotes(completionHandler: @escaping CurConvResultHandler)
     func requestQuote(from:String, to:String, amount:Double, completionHandler: @escaping CurConvResultHandler)
-    func getRateObjects() -> Results<RateRealm>
-    func getInfoObject() -> CurrencyRealm?
-    func clearRealm()
 }
 
 /// Main Interactor
@@ -54,21 +52,7 @@ extension MainInteractor: MainUseCase {
         }
     }
     
-    func getRateObjects() -> Results<RateRealm> {
-        let realm = try! Realm()
-        return realm.objects(RateRealm.self)
+    func requestSavedQuotes() -> Currency? {
+        return CurrencyRealm.getCurrency()?.asDomain()
     }
-    
-    func getInfoObject() -> CurrencyRealm? {
-        let realm = try! Realm()
-        return realm.objects(CurrencyRealm.self).first
-    }
-    
-    func clearRealm() {
-        let realm = try! Realm()
-        try! realm.write {
-            realm.deleteAll()
-        }
-    }
-    
 }

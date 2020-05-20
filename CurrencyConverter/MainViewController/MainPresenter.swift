@@ -47,17 +47,16 @@ extension MainPresenter: MainPresentation {
     }
     
     func fetchQuotes() {
-        guard let currency = CurrencyRealm.getInfo() else {
+        guard let currency:Currency = interactor.requestSavedQuotes() else {
             fetchFromServer()
             return
         }
-        
-        //check if 30 mins has passed
-        if currency.lastUpdate < Date() {
-            fetchFromServer()
-        }else {
-            view?.didReceivedQuotes(currency: currency.asDomain())
-        }
+//        if currency.lastUpdate < Date() {
+//            fetchFromServer()
+//            return
+//        }
+//        view?.didReceivedQuotes(currency: currency)
+        fetchFromServer()
     }
     
     func fetchFromServer() {
@@ -94,16 +93,15 @@ extension MainPresenter: MainPresentation {
     }
     
     func calculateLocally(from:String, to:String, amount:Double) {
-        if interactor.getRateObjects().count == 0 {
+        guard let rates = RateRealm.getRates() else {
             view?.onError(error: .fetchCurrencyFailed)
-        }else {
-            let rates = interactor.getRateObjects()
-            guard let fromRate = rates.first(where: {$0.target == from}) else {return}
-            guard let toRate = rates.first(where: {$0.target == to}) else {return}
-            let result = from == "USD" ? (toRate.value * amount) : (toRate.value / fromRate.value) * amount
-            let resultString = String(format: "%.5f", result)
-            self.view?.didReceivedConversion(quote: "= \(resultString) \(to)")
+            return
         }
+        guard let fromRate = rates.first(where: {$0.target == from}) else {return}
+        guard let toRate = rates.first(where: {$0.target == to}) else {return}
+        let result = from == "USD" ? (toRate.value * amount) : (toRate.value / fromRate.value) * amount
+        let resultString = String(format: "%.5f", result)
+        self.view?.didReceivedConversion(quote: "= \(resultString) \(to)")
     }
     
     func showAlert(title: String, message: String, actionHandler: @escaping () -> Void) {

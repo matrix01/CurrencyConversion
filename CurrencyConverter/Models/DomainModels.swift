@@ -5,7 +5,7 @@
 //  Created by milan.mia on 5/17/20.
 //  Copyright © 2020 fftsys. All rights reserved.
 //
-
+import Foundation
 //Live
 internal struct Currency {
     var source: String
@@ -13,6 +13,7 @@ internal struct Currency {
     var privacy: String
     var terms: String
     var success: Bool
+    var lastUpdate: Date
     var quotes: [Rate]
 }
 

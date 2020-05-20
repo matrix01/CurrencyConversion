@@ -15,7 +15,6 @@
 		8C261F2E247317E200EDC861 /* MainPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C261F2D247317E200EDC861 /* MainPresenterTest.swift */; };
 		8C261F322473197300EDC861 /* converted.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C261F312473197300EDC861 /* converted.json */; };
 		8C261F3A24731E1600EDC861 /* CurrencyConverterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C261F3924731E1600EDC861 /* CurrencyConverterUITests.swift */; };
-		8C261F432474CFB200EDC861 /* DatabaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C261F422474CFB200EDC861 /* DatabaseClient.swift */; };
 		8C261F452474ED0900EDC861 /* RealmModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C261F442474ED0900EDC861 /* RealmModels.swift */; };
 		8C261F47247548C100EDC861 /* Convertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C261F46247548C100EDC861 /* Convertible.swift */; };
 		8CFFB283246F20F8003C2716 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFFB282246F20F8003C2716 /* AppDelegate.swift */; };
@@ -75,7 +74,6 @@
 		8C261F3724731E1600EDC861 /* CurrencyConverterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CurrencyConverterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C261F3924731E1600EDC861 /* CurrencyConverterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverterUITests.swift; sourceTree = "<group>"; };
 		8C261F3B24731E1600EDC861 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8C261F422474CFB200EDC861 /* DatabaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseClient.swift; sourceTree = "<group>"; };
 		8C261F442474ED0900EDC861 /* RealmModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModels.swift; sourceTree = "<group>"; };
 		8C261F46247548C100EDC861 /* Convertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convertible.swift; sourceTree = "<group>"; };
 		8CFFB27F246F20F8003C2716 /* CurrencyConverter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyConverter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,7 +170,6 @@
 		8C261F412474CF8C00EDC861 /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				8C261F422474CFB200EDC861 /* DatabaseClient.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -530,7 +527,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CFFB2A2246F22FD003C2716 /* ApiRequestProtocol.swift in Sources */,
-				8C261F432474CFB200EDC861 /* DatabaseClient.swift in Sources */,
 				8CFFB2D12471BE57003C2716 /* CurrencyHeaderCell.swift in Sources */,
 				8CFFB2AD246F2607003C2716 /* DeviceModel.swift in Sources */,
 				8C261F452474ED0900EDC861 /* RealmModels.swift in Sources */,

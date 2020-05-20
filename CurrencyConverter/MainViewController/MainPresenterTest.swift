@@ -47,7 +47,7 @@ class MainPresenterTest: XCTestCase {
             XCTContext.runActivity(named: "Fetch Live Data") { _ in
                 view.initialize()
                 presenter.fetchQuotes()
-                XCTAssertTrue(view.isFetched, "Fetching data successful.")
+                XCTAssertTrue(interactor.isFetched, "Fetching data successful.")
                 XCTAssertTrue(view.isFetched, "UI update on fetch data successful.")
             }
             XCTContext.runActivity(named: "Converter Pass Test") { _ in
@@ -76,7 +76,7 @@ class MainViewMock: MainView {
     var isError: Bool!
     var conversionString:String!
     
-    private var currencyData: Currency? = nil {
+    var currencyData: Currency? = nil {
         didSet {
             self.updateQuotes()
         }

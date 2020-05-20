@@ -47,16 +47,16 @@ extension MainPresenter: MainPresentation {
     }
     
     func fetchQuotes() {
+        view?.showHud()
         guard let currency:Currency = interactor.requestSavedQuotes() else {
             fetchFromServer()
             return
         }
-//        if currency.lastUpdate < Date() {
-//            fetchFromServer()
-//            return
-//        }
-//        view?.didReceivedQuotes(currency: currency)
-        fetchFromServer()
+        if currency.lastUpdate < Date() {
+            fetchFromServer()
+            return
+        }
+        view?.didReceivedQuotes(currency: currency)
     }
     
     func fetchFromServer() {
@@ -77,6 +77,7 @@ extension MainPresenter: MainPresentation {
     }
     
     func fetchRateFor(from: String, to: String, amount: Double) {
+        view?.showHud()
         interactor.requestQuote(from: from, to: to, amount: amount) { [weak self] result in
             switch result {
             case .success(let data):

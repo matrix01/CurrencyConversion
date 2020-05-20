@@ -47,5 +47,24 @@ class MainRouterNetworkTest: XCTestCase {
             }
         }
     }
+    
+    func testRealmFetch() {
+        interactor.requestRecentQuotes { result in
+            switch result {
+            case.success(let data):
+                do {
+                    _ = try JSONDecoder().decode(CurrencyRealm.self, from: data)
+                    let realmData = self.interactor.requestSavedQuotes()
+                    if realmData == nil {
+                        XCTFail("Realm data save failed")
+                    }
+                } catch {
+                    XCTFail(error.localizedDescription)
+                }
+            case .failure(let error):
+                XCTFail(error.localizedDescription.message)
+            }
+        }
+    }
 
 }

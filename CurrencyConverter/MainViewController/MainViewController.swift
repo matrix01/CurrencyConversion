@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 /// protocol Main View
 protocol MainView: class {
     func didReceivedConversion(quote:String)
     func didReceivedQuotes(currency:Currency)
     func onError(error: CurrencyError)
+    func showHud()
     func showPicker()
     func hidePicker()
 }
@@ -124,6 +126,7 @@ extension MainViewController: UITableViewDelegate {
 extension MainViewController: MainView {
     
     func didReceivedConversion(quote: String) {
+        SVProgressHUD.dismiss()
         convertedLabel.text = quote
     }
     
@@ -136,24 +139,21 @@ extension MainViewController: MainView {
     }
     
     func didReceivedQuotes(currency: Currency) {
+        SVProgressHUD.dismiss()
         currencyData = currency
     }
 
     func onError(error: CurrencyError) {
-        switch error {
-        case .quotesJsonDecodeFailed:
-            presenter.showAlert(title: error.localizedDescription.title,
+        SVProgressHUD.dismiss()
+        presenter.showAlert(title: error.localizedDescription.title,
                                 message: error.localizedDescription.message,
                                 actionHandler: { [weak self] in
                     self?.presenter.retryFetch()
             })
-        default:
-            presenter.showAlert(title: error.localizedDescription.title,
-                                message: error.localizedDescription.message,
-                                actionHandler: { [weak self] in
-                self?.updateQuotes()
-            })
-        }
+    }
+    
+    func showHud() {
+        SVProgressHUD.show(withStatus: R.string.localizable.commonFetchProgress())
     }
 }
 

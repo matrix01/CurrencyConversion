@@ -8,6 +8,7 @@
 
 "Common.OK" = "OK";
 "Common.Cancel" = "Cancel";
+"Common.Fetch.Progress" = "Fetching...";
 
 /// Error
 "Error.ConnectionDisconnected.Message" = "Offline";

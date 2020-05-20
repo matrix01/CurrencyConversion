@@ -166,7 +166,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 16 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 17 localization keys.
     struct localizable {
       /// Value: A server error has occurred. Please try again later.
       static let errorServerErrorMessage = Rswift.StringResource(key: "Error.ServerError.Message", tableName: "Localizable", bundle: R.hostingBundle, locales: [], comment: nil)
@@ -186,6 +186,8 @@ struct R: Rswift.Validatable {
       static let errorEmptyDataMessage = Rswift.StringResource(key: "Error.EmptyData.Message", tableName: "Localizable", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Error Http StatusCode
       static let errorHttpStatusCodeNotSuccessMessage = Rswift.StringResource(key: "Error.HttpStatusCodeNotSuccess.Message", tableName: "Localizable", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Fetching...
+      static let commonFetchProgress = Rswift.StringResource(key: "Common.Fetch.Progress", tableName: "Localizable", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Invalid Http StatusCode
       static let errorInvalidHttpStatusCodeMessage = Rswift.StringResource(key: "Error.InvalidHttpStatusCode.Message", tableName: "Localizable", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: JSON decode failed
@@ -316,6 +318,19 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("Error.HttpStatusCodeNotSuccess.Message", bundle: bundle, comment: "")
+      }
+
+      /// Value: Fetching...
+      static func commonFetchProgress(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("Common.Fetch.Progress", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "Common.Fetch.Progress"
+        }
+
+        return NSLocalizedString("Common.Fetch.Progress", bundle: bundle, comment: "")
       }
 
       /// Value: Invalid Http StatusCode

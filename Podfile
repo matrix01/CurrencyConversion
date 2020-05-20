@@ -15,4 +15,6 @@ target 'CurrencyConverter' do
    pod 'SwiftLint'
    pod 'RealmSwift'
 
+   #progress hud
+   pod 'SVProgressHUD', :git => 'https://github.com/SVProgressHUD/SVProgressHUD.git'
 end

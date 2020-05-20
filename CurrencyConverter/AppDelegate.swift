@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import RealmSwift
+import SVProgressHUD
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationController = UINavigationController(rootViewController: initialViewController)
         window?.rootViewController = navigationController
 
+        SVProgressHUD.setDefaultMaskType(.clear)
+        
         if #available(iOS 13.0, *) {
             window?.overrideUserInterfaceStyle = .light
         }       

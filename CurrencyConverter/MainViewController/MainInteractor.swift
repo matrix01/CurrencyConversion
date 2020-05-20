@@ -13,7 +13,9 @@ import RealmSwift
 protocol MainUseCase {
     func requestRecentQuotes(completionHandler: @escaping CurConvResultHandler)
     func requestQuote(from:String, to:String, amount:Double, completionHandler: @escaping CurConvResultHandler)
-    func getLiveObject() -> Live?
+    func getRateObjects() -> Results<RateRealm>
+    func getInfoObject() -> InfoRealm?
+    func clearRealm()
 }
 
 /// Main Interactor
@@ -52,10 +54,21 @@ extension MainInteractor: MainUseCase {
         }
     }
     
-    func getLiveObject() -> Live? {
+    func getRateObjects() -> Results<RateRealm> {
         let realm = try! Realm()
-        let ob = realm.objects(Live.self)
-        guard let live = realm.objects(Live.self).first else {return nil}
-        return live
+        return realm.objects(RateRealm.self)
     }
+    
+    func getInfoObject() -> InfoRealm? {
+        let realm = try! Realm()
+        return realm.objects(InfoRealm.self).first
+    }
+    
+    func clearRealm() {
+        let realm = try! Realm()
+        try! realm.write {
+            realm.deleteAll()
+        }
+    }
+    
 }

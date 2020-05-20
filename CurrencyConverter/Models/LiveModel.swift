@@ -5,17 +5,15 @@
 //  Created by milan.mia on 5/17/20.
 //  Copyright © 2020 fftsys. All rights reserved.
 //
-
 import RealmSwift
-
 //Live
-class Live: Object, Codable {
-    @objc dynamic var source: String = ""
-    @objc dynamic var timestamp: Int = 0
-    @objc dynamic var privacy: String = ""
-    @objc dynamic var terms: String = ""
-    @objc dynamic var success: Bool = false
-    var quotes: [Rate] = []
+internal struct Live: Codable {
+    var source: String
+    var timestamp: Int
+    var privacy: String
+    var terms: String
+    var success: Bool
+    var quotes: [Rate]
 
     private enum CodingKeys: String, CodingKey {
         case source
@@ -26,8 +24,7 @@ class Live: Object, Codable {
         case quotes
     }
 
-    required convenience public init(from decoder: Decoder) throws {
-        self.init()
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         source = try container.decode(String.self, forKey: .source)
         timestamp = try container.decode(Int.self, forKey: .timestamp)
@@ -38,30 +35,58 @@ class Live: Object, Codable {
             return Rate.init(key: dict.key, value: dict.value)
         }
         quotes = arrayOfRate
+        saveInfoInRealm()
+    }
+    
+    func saveInfoInRealm(){
+        let realm = try! Realm()
         
+        let infoRealm = InfoRealm()
+        infoRealm.source = self.source
+        infoRealm.timestamp = self.timestamp
+        infoRealm.lastUpdate = Date()
+        infoRealm.terms = self.terms
+        infoRealm.privacy = self.privacy
+        
+        try! realm.write {
+            realm.add(infoRealm)
+        }
     }
 }
 
-class Rate: Object, Codable {
-    @objc dynamic var source: String = ""
-    @objc dynamic var target: String = ""
-    @objc dynamic var value: Double = 0.0
+internal struct Rate: Codable {
+    var source: String
+    var target: String
+    var value: Double
     
-    required init(key:String, value: Double) {
+    init(key:String, value: Double) {
         source = key.substring(to: 3)
         target = key.substring(from: 3)
         self.value = value
-    }
-    
-    required init() {
-        super.init()
-        source = ""
-        target = ""
-        value = 0.0
-        savedata()
-    }
-    
-    func savedata() {
         
+        let realm = try! Realm()
+        
+        let rateRealm = RateRealm()
+        rateRealm.source = source
+        rateRealm.target = target
+        rateRealm.value = value
+        
+        try! realm.write {
+            realm.add(rateRealm)
+        }
     }
+}
+
+class RateRealm: Object {
+    @objc dynamic var source: String = ""
+    @objc dynamic var target: String = ""
+    @objc dynamic var value: Double = 0.0
+}
+
+class InfoRealm: Object {
+    @objc dynamic var source: String = ""
+    @objc dynamic var timestamp: Int = 0
+    @objc dynamic var privacy: String = ""
+    @objc dynamic var terms: String = ""
+    @objc dynamic var lastUpdate: Date = Date()
 }

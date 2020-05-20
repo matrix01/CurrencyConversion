@@ -43,23 +43,21 @@ extension MainPresenter: MainPresentation {
     }
     
     func fetchQuotes() {
-        if (interactor.getLiveObject() != nil) {
-            if let live = interactor.getLiveObject() {
-                self.view?.didReceivedQuotes(live: live)
-                return
-            }
+        if (interactor.getRateObjects().count != 0) {
+            let rates = interactor.getRateObjects()
+            let info = interactor.getInfoObject()
+            view?.didReceivedQuotes(live: info, rates: rates)
+            return
         }
         
         interactor.requestRecentQuotes(completionHandler: { [weak self] result in
             switch result {
             case .success(let data):
                 do {
-                    let  realm  =  try!  Realm ()
-                    let quote = try JSONDecoder().decode(Live.self, from: data)
-                    self?.view?.didReceivedQuotes(live: quote)
-                    try! realm.write({
-                        realm.add(quote)
-                    })
+                    _ = try JSONDecoder().decode(Live.self, from: data)
+                    let rates = self?.interactor.getRateObjects()
+                    let info = self?.interactor.getInfoObject()
+                    self?.view?.didReceivedQuotes(live: info, rates: rates)
                 }catch {
                     self?.view?.onError(error: .quotesJsonDecodeFailed)
                 }
@@ -86,13 +84,10 @@ extension MainPresenter: MainPresentation {
     }
     
     func calculateLocally(from:String, to:String, amount:Double) {
-        if view?.getLiveData().count == 0 {
+        if interactor.getRateObjects().count == 0 {
             view?.onError(error: .fetchCurrencyFailed)
         }else {
-            guard let rates = view?.getLiveData() else {
-                view?.onError(error: .fetchCurrencyFailed)
-                return
-            }
+            let rates = interactor.getRateObjects()
             guard let fromRate = rates.first(where: {$0.target == from}) else {return}
             guard let toRate = rates.first(where: {$0.target == to}) else {return}
             let result = from == "USD" ? (toRate.value * amount) : (toRate.value / fromRate.value) * amount

@@ -25,13 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if #available(iOS 13.0, *) {
             window?.overrideUserInterfaceStyle = .light
-        }
-
-        let realm = try! Realm()
-        try! realm.write({
-            realm.deleteAll()
-        })
-        
+        }       
         window?.makeKeyAndVisible()
         
         return true

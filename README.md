@@ -7,7 +7,7 @@ To collect recent currency rates and list of available currencies
 2. https://api.currencylayer.com/convert?from=EUR&to=GBP&amount=100
 To convert currency from one specific currency to another with a amount
 
-###Project environment
+### Project environment
 * Xcode: 11.4
 * iOS version: Minimum set to 11.0
 

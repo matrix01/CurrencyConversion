@@ -64,9 +64,9 @@ extension MainPresenter: MainPresentation {
             switch result {
             case .success(let data):
                 do {
-                    let test = try JSONDecoder().decode(CurrencyRealm.self, from: data)
-                    test.save()
-                    self?.view?.didReceivedQuotes(currency: test.asDomain())
+                    let currency = try JSONDecoder().decode(CurrencyRealm.self, from: data)
+                    currency.save()
+                    self?.view?.didReceivedQuotes(currency: currency.asDomain())
                 }catch {
                     self?.view?.onError(error: .quotesJsonDecodeFailed)
                 }

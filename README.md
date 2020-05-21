@@ -9,7 +9,7 @@ To convert currency from one specific currency to another with a amount
 
 ### How to run the project
 1. Download project
-2. Install pod
+2. Install pod; Run command "pod install" from project directory
 3. Build & Run project
 4. Click on "Product" and select "Test" to run the tests
 

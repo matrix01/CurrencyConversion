@@ -25,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         SVProgressHUD.setDefaultMaskType(.clear)
         
+        //kraken test
+        
         if #available(iOS 13.0, *) {
             window?.overrideUserInterfaceStyle = .light
         }       
